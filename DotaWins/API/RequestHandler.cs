@@ -29,15 +29,12 @@ namespace DotaWins
             }
             catch (WebException ex)       
             {
-                if (ex.Response is HttpWebResponse)
+                if ((ex.Response as HttpWebResponse)?.StatusCode == (HttpStatusCode) 429)
                 {
-                    if (((HttpWebResponse) ex.Response).StatusCode == (HttpStatusCode) 429)
+                    if (retries <= MaxRetries)
                     {
-                        if (retries <= MaxRetries)
-                        {
-                            Thread.Sleep(1000 * (retries + 1));
-                            return GET(url, retries + 1);
-                        }
+                        Thread.Sleep(1000 * (retries + 1));
+                        return GET(url, retries + 1);
                     }
                 }
 
