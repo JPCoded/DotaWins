@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DotaWins.API
+namespace DotaWins
 {
-    public partial class PlayerDisplay
+    public class PlayerDisplay
     {
         public PlayerDisplay()
         {
@@ -24,7 +23,6 @@ namespace DotaWins.API
         {
             Data.Clear();
 
-            PlayerData playerData = null;
             Match[] recentMatches = null;
 
             CTSource?.Cancel();
@@ -36,10 +34,7 @@ namespace DotaWins.API
 
             Task.Factory.StartNew(() =>
             {
-                if (!cancelToken.IsCancellationRequested)
-                {
-                    playerData = OpenDotaAPI.GetPlayerData(playerID);
-                }
+
 
                 if (!cancelToken.IsCancellationRequested)
                 {
@@ -48,7 +43,7 @@ namespace DotaWins.API
 
                 if (!cancelToken.IsCancellationRequested)
                 {
-                    Data.ConsumeData(playerID, playerData, recentMatches);
+                    Data.ConsumeData(playerID, recentMatches);
                 }
             }, cancelToken).ContinueWith(t => RetrievalCompleted?.Invoke(this, null), cancelToken);
         }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using DotaWins.Outputs;
 
 
-namespace DotaWins.API
+namespace DotaWins
 {
-    public partial class PlayerDisplay
-    {
         public class DisplayData : INotifyPropertyChanged
         {
             public string ID { get; private set; }
@@ -30,34 +27,13 @@ namespace DotaWins.API
 
             public event PropertyChangedEventHandler PropertyChanged;
 
-            public void ConsumeData(string id, PlayerData playerData, Match[] recentMatches)
+            public void ConsumeData(string id,  Match[] recentMatches)
             {
                 ID = id;
 
                 NotifyUpdateLocal();
 
-                ConsumePlayerData(playerData);
                 ConsumeRecentMatches(recentMatches);
-            }
-
-            private void ConsumePlayerData(PlayerData playerData)
-            {
-                if (playerData?.profile == null)
-                {
-                    Name = "Anonymous";
-                    SoloMMR = "X";
-                    EstimateMMR = "X";
-                }
-                else
-                {
-                    Name = playerData.profile.personaname;
-                    SoloMMR = playerData.solo_competitive_rank ?? "X";
-                    EstimateMMR = playerData.mmr_estimate.estimate.HasValue
-                        ? playerData.mmr_estimate.estimate.ToString()
-                        : "X";
-                }
-
-                NotifyUpdateProfile();
             }
 
             private void ConsumeRecentMatches(Match[] recentMatches)
@@ -171,4 +147,4 @@ namespace DotaWins.API
             }
         }
     }
-}
+

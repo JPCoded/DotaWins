@@ -25,9 +25,15 @@ namespace DotaWins
             InitializeComponent();
         }
 
+        public PlayerDisplay PlayerDisplays { get; set; }
+
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-
+            PlayerDisplays = new PlayerDisplay();
+            PlayerDisplays.Update(txtPlayerId.Text,3);
+            
         }
+
+
     }
 }
