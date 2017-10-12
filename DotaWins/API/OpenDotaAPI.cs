@@ -2,7 +2,7 @@
 
 namespace DotaWins
 {
-    public static class OpenDotaAPI
+    internal static class OpenDotaApi
     {
         public static PlayerData GetPlayerData(string playerID)
         {

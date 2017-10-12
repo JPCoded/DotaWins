@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace DotaWins
 {
-    public static class RequestHandler
+    internal static class RequestHandler
     {
         private const int MaxRetries = 3;
 

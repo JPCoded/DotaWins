@@ -15,9 +15,9 @@ namespace DotaWins
 
         private CancellationTokenSource CTSource { get; set; }
 
-        public event EventHandler RetrievalStarted;
+        public static event EventHandler RetrievalStarted;
 
-        public event EventHandler RetrievalCompleted;
+        public static event EventHandler RetrievalCompleted;
 
         public void Update(string playerID, int Lobby)
         {
@@ -38,7 +38,7 @@ namespace DotaWins
 
                 if (!cancelToken.IsCancellationRequested)
                 {
-                    recentMatches = OpenDotaAPI.GetPlayerMatches(playerID, Lobby);
+                    recentMatches = OpenDotaApi.GetPlayerMatches(playerID, Lobby);
                 }
 
                 if (!cancelToken.IsCancellationRequested)

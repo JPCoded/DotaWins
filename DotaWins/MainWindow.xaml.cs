@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace DotaWins
 {
@@ -26,14 +14,31 @@ namespace DotaWins
         }
 
         public PlayerDisplay PlayerDisplays { get; set; }
+        public int RunningRetrievals { get; set; }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             PlayerDisplays = new PlayerDisplay();
-            PlayerDisplays.Update(txtPlayerId.Text,3);
-            
+            PlayerDisplay.RetrievalStarted += PlayerDisplay_RetrievalStarted;
+            PlayerDisplay.RetrievalCompleted += PlayerDisplay_RetrievalCompleted;
+            PlayerDisplays.Update(txtPlayerId.Text,7);
+
+            foreach (var outcome in PlayerDisplays.Data.WinLosses)
+            {
+                txtResults.Text += outcome + "\n";
+            }
         }
 
+        private void PlayerDisplay_RetrievalStarted(object sender, EventArgs e)
+        {
+            RunningRetrievals++;
+        }
+
+        private void PlayerDisplay_RetrievalCompleted(object sender, EventArgs e)
+        {
+            RunningRetrievals--;
+           
+        }
 
     }
 }
