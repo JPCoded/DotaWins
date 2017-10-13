@@ -48,7 +48,7 @@ namespace DotaWins
 
                     for (var i = 0; i < RecentMatches.Length; i++)
                     {
-                        WinLosses[i] = recentMatches[i].Won ? 1 : 0;
+                        WinLosses[i] = recentMatches[i].Won ? 1 : -1;
                     }
 
                     NotifyUpdateMatches();

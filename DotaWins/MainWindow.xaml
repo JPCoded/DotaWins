@@ -17,7 +17,7 @@
         <TextBox x:Name="txtPlayerId" HorizontalAlignment="Left" Height="23" Margin="84,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF020202" Text="24429419"/>
         <oxy:Plot Title="{Binding Title}" Margin="0,57,0,0">
             <oxy:Plot.Series>
-                <oxy:LineSeries ItemsSource="{Binding Points}"/>
+                <oxy:LineSeries x:Name="lineSeries"/>
             </oxy:Plot.Series>
         </oxy:Plot>
     </Grid>
