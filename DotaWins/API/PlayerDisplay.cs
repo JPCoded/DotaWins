@@ -1,10 +1,6 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace DotaWins
+﻿namespace DotaWins
 {
-    public class PlayerDisplay
+    public partial class PlayerDisplay
     {
         public PlayerDisplay()
         {
@@ -13,39 +9,15 @@ namespace DotaWins
 
         public DisplayData Data { get; set; }
 
-        private CancellationTokenSource CTSource { get; set; }
-
-        public static event EventHandler RetrievalStarted;
-
-        public static event EventHandler RetrievalCompleted;
-
-        public void Update(string playerID, int Lobby)
+        public void Update(string playerID, int i)
         {
             Data.Clear();
 
-            Match[] recentMatches = null;
 
-            CTSource?.Cancel();
-            CTSource = new CancellationTokenSource();
-
-            var cancelToken = CTSource.Token;
-
-            RetrievalStarted?.Invoke(this, null);
-
-            Task.Factory.StartNew(() =>
-            {
-
-
-                if (!cancelToken.IsCancellationRequested)
-                {
-                    recentMatches = OpenDotaApi.GetPlayerMatches(playerID, Lobby);
-                }
-
-                if (!cancelToken.IsCancellationRequested)
-                {
-                    Data.ConsumeData(playerID, recentMatches);
-                }
-            }, cancelToken).ContinueWith(t => RetrievalCompleted?.Invoke(this, null), cancelToken);
+            var recentMatches = OpenDotaApi.GetPlayerMatches(playerID,7);
+            Data.ConsumeData(playerID,recentMatches);
+          
         }
     }
 }
+

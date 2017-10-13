@@ -2,31 +2,31 @@
 
 namespace DotaWins
 {
-    internal static class OpenDotaApi
-    {
-        public static PlayerData GetPlayerData(string playerID)
+   
+        public class OpenDotaApi
         {
-            var result = RequestHandler.GET($"https://api.opendota.com/api/players/{playerID}");
-
-            return result != null ? JsonConvert.DeserializeObject<PlayerData>(result) : null;
-        } 
-             
-        public static Match[] GetPlayerMatches(string playerID, int lobbyType)
-        {
-        
-            var requestString = $@"https://api.opendota.com/api/players/{playerID}/matches?limit=5000";
-
-            if (lobbyType > 0) 
+            public static PlayerData GetPlayerData(string playerID)
             {
-                requestString += $@"&lobby_type={lobbyType}";
+                var result = RequestHandler.GET($"https://api.opendota.com/api/players/{playerID}");
+
+                return result != null ? JsonConvert.DeserializeObject<PlayerData>(result) : null;
             }
 
-        
-             var result = RequestHandler.GET(requestString);
+            public static Match[] GetPlayerMatches(string playerID, int lobbyType)
+            {
 
-            return result != null ? JsonConvert.DeserializeObject<Match[]>(result) : null;
+                var requestString = $@"https://api.opendota.com/api/players/{playerID}/matches?limit=5000";
+
+                if (lobbyType > 0)
+                {
+                    requestString += $@"&lobby_type={lobbyType}";
+                }
+
+
+                var result = RequestHandler.GET(requestString);
+
+                return result != null ? JsonConvert.DeserializeObject<Match[]>(result) : null;
+            }
+
         }
-
-    } 
-}
- 
+    }
