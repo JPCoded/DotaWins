@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using OxyPlot;
 
@@ -29,16 +30,17 @@ namespace DotaWins
             Points = new List<DataPoint>();
 
             var x = 0;
-            var currentWL = 0;
+            var currentWl = 0;
             PlayerDisplays.Update(txtPlayerId.Text, 7);
+            var winLose = PlayerDisplays.Data.WinLosses.Reverse();
 
-            foreach (var outcome in PlayerDisplays.Data.WinLosses)
+            foreach (var outcome in winLose)
             {
-                
-                currentWL += outcome;
-              Points.Add(new DataPoint(x,currentWL));
+                currentWl += outcome;
+                Points.Add(new DataPoint(x,currentWl));
                 x++;
             }
+
             lineSeries.ItemsSource = Points;
         }
 
