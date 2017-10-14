@@ -31,6 +31,7 @@ namespace DotaWins
 
             var x = 0;
             var currentWl = 0;
+            //Should be async as to not block thread but not 100% sure if it really working async 
             await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
             var winLose = PlayerDisplays.Data.WinLosses.Reverse();
 
