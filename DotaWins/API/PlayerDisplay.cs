@@ -44,7 +44,7 @@ namespace DotaWins
 
                 if (!cancelToken.IsCancellationRequested)
                 {
-                    Data.ConsumeData(playerId, recentMatches);
+                    Data.ConsumeRecentMatches(recentMatches);
                 }
             }, cancelToken).ContinueWith(t => RetrievalCompleted?.Invoke(this, null), cancelToken);
 

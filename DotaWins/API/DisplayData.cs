@@ -31,15 +31,9 @@ namespace DotaWins
             public int[] WinLosses { get; set; }
 
 
-            public void ConsumeData(string id, Match[] recentMatches)
+            public void ConsumeRecentMatches(Match[] recentMatches)
             {
-                ID = id;
-
-                ConsumeRecentMatches(recentMatches);
-            }
-
-            private void ConsumeRecentMatches(Match[] recentMatches)
-            {
+                Clear();
                 if (recentMatches != null && recentMatches.Length > 0)
                 {
                     RecentMatches = recentMatches;
