@@ -23,7 +23,7 @@ namespace DotaWins
 
         public IList<DataPoint> Points { get; set; }
 
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        private async void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             PlayerDisplays = new PlayerDisplay();
 
@@ -31,7 +31,7 @@ namespace DotaWins
 
             var x = 0;
             var currentWl = 0;
-            PlayerDisplays.Update(txtPlayerId.Text, 7);
+            await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
             var winLose = PlayerDisplays.Data.WinLosses.Reverse();
 
             foreach (var outcome in winLose)
