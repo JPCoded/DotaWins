@@ -13,23 +13,23 @@ namespace DotaWins
     {
         private const int MaxRetries = 3;
 
-        public static string GET(string url) => GET(url, 0);                                               
+        public static string GET(string url) => GET(url, 0);
 
         private static string GET(string url, int retries)
         {
-            var request = (HttpWebRequest) WebRequest.Create(url);
+            var request = (HttpWebRequest)WebRequest.Create(url);
             try
             {
                 var response = request.GetResponse();
                 using (var responseStream = response.GetResponseStream())
                 {
-                    var reader = new StreamReader(responseStream, Encoding.UTF8);
+                    var reader = new  StreamReader(responseStream, Encoding.UTF8);
                     return reader.ReadToEnd();
                 }
             }
-            catch (WebException ex)       
+            catch (WebException ex)
             {
-                if ((ex.Response as HttpWebResponse)?.StatusCode == (HttpStatusCode) 429)
+                if ((ex.Response as HttpWebResponse)?.StatusCode == (HttpStatusCode)429)
                 {
                     if (retries <= MaxRetries)
                     {
@@ -40,6 +40,6 @@ namespace DotaWins
 
                 return null;
             }
-        } 
+        }
     }
 }

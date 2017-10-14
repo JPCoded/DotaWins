@@ -2,15 +2,9 @@
 
 namespace DotaWins
 {
-   
-        public class OpenDotaApi
+    internal static class OpenDotaApi
         {
-            public static PlayerData GetPlayerData(string playerID)
-            {
-                var result = RequestHandler.GET($"https://api.opendota.com/api/players/{playerID}");
-
-                return result != null ? JsonConvert.DeserializeObject<PlayerData>(result) : null;
-            }
+          
 
             public static Match[] GetPlayerMatches(string playerID, int lobbyType)
             {
@@ -25,7 +19,7 @@ namespace DotaWins
 
                 var result = RequestHandler.GET(requestString);
 
-                return result != null ? JsonConvert.DeserializeObject<Match[]>(result) : null;
+                return result != null ? JsonConvert.DeserializeObject<Match[]>(result.ToString()) : null;
             }
 
         }

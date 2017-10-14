@@ -7,15 +7,12 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Window.DataContext>
-        <local:MainViewModel/>
-    </Window.DataContext>
-    <Grid>
 
+    <Grid>
         <Label x:Name="label" Content="PlayerID" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" BorderBrush="Black"/>
         <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="321,17,0,0" VerticalAlignment="Top" Width="75" Click="btnRefresh_Click"/>
         <TextBox x:Name="txtPlayerId" HorizontalAlignment="Left" Height="23" Margin="84,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" BorderBrush="#FF020202" Text="24429419"/>
-        <oxy:Plot Title="{Binding Title}" Margin="0,57,0,0">
+        <oxy:Plot Title="Win/Loss" Margin="0,57,0,0">
             <oxy:Plot.Series>
                 <oxy:LineSeries x:Name="lineSeries"/>
             </oxy:Plot.Series>

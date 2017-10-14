@@ -3,9 +3,9 @@ using System.ComponentModel;
 
 namespace DotaWins
 {
-    public partial class PlayerDisplay
+    public sealed partial class PlayerDisplay
     {
-        public class DisplayData : INotifyPropertyChanged
+        public class DisplayData 
         {
             public string ID { get; private set; }
 
@@ -27,13 +27,11 @@ namespace DotaWins
             public float AverageLastHits { get; private set; }
             public int[] WinLosses { get; set; }
 
-            public event PropertyChangedEventHandler PropertyChanged;
+          
 
             public void ConsumeData(string id, Match[] recentMatches)
             {
                 ID = id;
-
-                NotifyUpdateLocal();
 
                 ConsumeRecentMatches(recentMatches);
             }
@@ -44,14 +42,14 @@ namespace DotaWins
                 {
                     RecentMatches = recentMatches;
                     WinLosses = new int[recentMatches.Length];
-                   
 
                     for (var i = 0; i < RecentMatches.Length; i++)
                     {
+                        
                         WinLosses[i] = recentMatches[i].Won ? 1 : -1;
                     }
 
-                    NotifyUpdateMatches();
+                   
                 }
             }
 
@@ -75,33 +73,12 @@ namespace DotaWins
                 AverageTowerDamage = 0;
                 AverageHeroHealing = 0;
                 AverageLastHits = 0;
+                WinLosses = null;
 
-
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+              
             }
 
-            private void NotifyUpdateLocal()
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ID)));
-            }
-
-
-            private void NotifyUpdateMatches()
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Winrate)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageDuration)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RecentMatches)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageKills)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageDeaths)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageAssists)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageXPM)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageGPM)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageHeroDamage)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageTowerDamage)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageHeroHealing)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AverageLastHits)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(WinLosses)));
-            }
+          
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DotaWins
 {
-    public partial class PlayerDisplay
+    public sealed partial class PlayerDisplay
     {
         public PlayerDisplay()
         {
@@ -9,13 +9,13 @@
 
         public DisplayData Data { get; set; }
 
-        public void Update(string playerID, int i)
+        public void Update(string playerId, int lobby)
         {
             Data.Clear();
 
 
-            var recentMatches = OpenDotaApi.GetPlayerMatches(playerID,7);
-            Data.ConsumeData(playerID,recentMatches);
+            var recentMatches = OpenDotaApi.GetPlayerMatches(playerId,lobby);
+            Data.ConsumeData(playerId,recentMatches);
           
         }
     }
