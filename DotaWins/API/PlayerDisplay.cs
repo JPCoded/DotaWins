@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+
+#endregion
 
 namespace DotaWins
 {
@@ -10,35 +14,32 @@ namespace DotaWins
         {
             Data = new DisplayData();
         }
+
+        public DisplayData Data { get; set; }
+
+        private CancellationTokenSource CtSource { get; set; }
         public event EventHandler RetrievalStarted;
 
         public event EventHandler RetrievalCompleted;
-        public DisplayData Data { get; set; }
- 
-        private CancellationTokenSource CTSource { get; set; }
+
         public async Task UpdateAsync(string playerId, int lobby)
         {
             Data.Clear();
             Match[] recentMatches = null;
 
-            CTSource?.Cancel();
-            CTSource = new CancellationTokenSource();
+            CtSource?.Cancel();
+            CtSource = new CancellationTokenSource();
 
-            var cancelToken = CTSource.Token;
+            var cancelToken = CtSource.Token;
 
             RetrievalStarted?.Invoke(this, null);
 
-           
+
             await Task.Factory.StartNew(() =>
             {
                 if (!cancelToken.IsCancellationRequested)
                 {
-                  //  playerData = OpenDotaAPI.GetPlayerData(playerID);
-                }
-
-                if (!cancelToken.IsCancellationRequested)
-                {
-                    recentMatches = OpenDotaApi.GetPlayerMatches(playerId,lobby);
+                    recentMatches = OpenDotaApi.GetPlayerMatches(playerId, lobby);
                 }
 
                 if (!cancelToken.IsCancellationRequested)
@@ -46,10 +47,7 @@ namespace DotaWins
                     Data.ConsumeData(playerId, recentMatches);
                 }
             }, cancelToken).ContinueWith(t => RetrievalCompleted?.Invoke(this, null), cancelToken);
-         //   var recentMatches = OpenDotaApi.GetPlayerMatches(playerId,lobby);
-            Data.ConsumeData(playerId,recentMatches);
-          
+
         }
     }
 }
-

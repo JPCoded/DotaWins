@@ -38,13 +38,11 @@ namespace DotaWins
             foreach (var outcome in winLose)
             {
                 currentWl += outcome;
-                Points.Add(new DataPoint(x,currentWl));
+                Points.Add(new DataPoint(x, currentWl));
                 x++;
             }
 
             lineSeries.ItemsSource = Points;
         }
-
-
     }
 }

@@ -1,10 +1,14 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace DotaWins
 {
     public sealed partial class PlayerDisplay
     {
-        public class DisplayData 
+        public class DisplayData
         {
             public string ID { get; private set; }
 
@@ -26,7 +30,6 @@ namespace DotaWins
             public float AverageLastHits { get; private set; }
             public int[] WinLosses { get; set; }
 
-          
 
             public void ConsumeData(string id, Match[] recentMatches)
             {
@@ -44,11 +47,8 @@ namespace DotaWins
 
                     for (var i = 0; i < RecentMatches.Length; i++)
                     {
-                        
                         WinLosses[i] = recentMatches[i].Won ? 1 : -1;
                     }
-
-                   
                 }
             }
 
@@ -73,12 +73,7 @@ namespace DotaWins
                 AverageHeroHealing = 0;
                 AverageLastHits = 0;
                 WinLosses = null;
-
-              
             }
-
-          
         }
     }
 }
-

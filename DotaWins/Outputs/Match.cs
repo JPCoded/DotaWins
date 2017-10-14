@@ -19,6 +19,7 @@
         public int? hero_healing { get; set; }
         public int last_hits { get; set; }
         public int[] AllMatches { get; set; }
+
         public bool Won
         {
             get
