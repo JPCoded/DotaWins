@@ -15,10 +15,17 @@
                 VerticalAlignment="Top" Width="75" Click="btnRefresh_Click" />
         <TextBox x:Name="txtPlayerId" HorizontalAlignment="Left" Height="23" Margin="84,14,0,0" TextWrapping="Wrap"
                  VerticalAlignment="Top" Width="120" BorderBrush="#FF020202" Text="24429419" />
-        <oxy:Plot Title="Win/Loss" Margin="0,57,0,0">
-            <oxy:Plot.Series>
-                <oxy:LineSeries x:Name="lineSeries" />
-            </oxy:Plot.Series>
-        </oxy:Plot>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="267" Margin="23,42,0,0" VerticalAlignment="Top" Width="472">
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Win\Loss Graph">
+                <Grid Background="#FFE5E5E5">
+                    <oxy:Plot Title="Win/Loss">
+                        <oxy:LineSeries x:Name="lineSeries" />
+                    </oxy:Plot>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
