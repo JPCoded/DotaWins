@@ -31,7 +31,7 @@ namespace DotaWins
 
             var x = 0;
             var currentWl = 0;
-            //Should be async as to not block thread but not 100% sure if it really working async 
+          
             await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
             var winLose = PlayerDisplays.Data.WinLosses.Reverse();
 
@@ -41,7 +41,8 @@ namespace DotaWins
                 Points.Add(new DataPoint(x, currentWl));
                 x++;
             }
-
+            lblAXPM_.Content = PlayerDisplays.Data.AverageXPM;
+            lblWR_.Content = (PlayerDisplays.Data.Winrate * 100) + "%";
             lineSeries.ItemsSource = Points;
         }
     }

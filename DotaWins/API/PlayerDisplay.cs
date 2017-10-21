@@ -34,7 +34,6 @@ namespace DotaWins
 
             RetrievalStarted?.Invoke(this, null);
 
-
             await Task.Factory.StartNew(() =>
             {
                 if (!cancelToken.IsCancellationRequested)
