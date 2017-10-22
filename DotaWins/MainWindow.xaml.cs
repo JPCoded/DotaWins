@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows;
 using OxyPlot;
 
@@ -41,8 +42,11 @@ namespace DotaWins
                 Points.Add(new DataPoint(x, currentWl));
                 x++;
             }
+
             lblAXPM_.Content = PlayerDisplays.Data.AverageXPM;
-            lblWR_.Content = (PlayerDisplays.Data.Winrate * 100) + "%";
+            lblWR_.Content = PlayerDisplays.Data.Winrate.ToString("P");
+
+
             lineSeries.ItemsSource = Points;
         }
     }
