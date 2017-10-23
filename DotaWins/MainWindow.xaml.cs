@@ -44,7 +44,10 @@ namespace DotaWins
             }
 
             lblAXPM_.Content = PlayerDisplays.Data.AverageXPM;
-            lblWR_.Content = PlayerDisplays.Data.Winrate.ToString("P");
+            lblWR_.Content = $"{PlayerDisplays.Data.Winrate:P}";
+            lblAAssists_.Content = $"{PlayerDisplays.Data.AverageAssists:F1}";
+            lblADeaths_.Content = $"{PlayerDisplays.Data.AverageDeaths:F1}"; 
+            lblAKills_.Content = $"{PlayerDisplays.Data.AverageKills:F1}";
 
 
             lineSeries.ItemsSource = Points;
