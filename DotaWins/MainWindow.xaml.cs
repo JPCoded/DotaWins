@@ -28,28 +28,34 @@ namespace DotaWins
         {
             PlayerDisplays = new PlayerDisplay();
 
+            await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
+
+            UpdateWinLossGraph(PlayerDisplays.Data.WinLosses.Reverse());
+            
+            lblAXPM_.Content = PlayerDisplays.Data.AverageXPM;
+            lblAGPM_.Content = PlayerDisplays.Data.AverageGPM;
+            lblWR_.Content = $"{PlayerDisplays.Data.Winrate:P}";
+            lblAAssists_.Content = $"{PlayerDisplays.Data.AverageAssists:F1}";
+            lblADeaths_.Content = $"{PlayerDisplays.Data.AverageDeaths:F1}"; 
+            lblAKills_.Content = $"{PlayerDisplays.Data.AverageKills:F1}";
+            lblADuration_.Content = PlayerDisplays.Data.AverageDuration;
+
+
+
+        }
+
+        private void UpdateWinLossGraph(IEnumerable<int> winLoseList)
+        {
             Points = new List<DataPoint>();
 
             var x = 0;
             var currentWl = 0;
-          
-            await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
-            var winLose = PlayerDisplays.Data.WinLosses.Reverse();
-
-            foreach (var outcome in winLose)
+            foreach (var outcome in winLoseList)
             {
                 currentWl += outcome;
                 Points.Add(new DataPoint(x, currentWl));
                 x++;
             }
-
-            lblAXPM_.Content = PlayerDisplays.Data.AverageXPM;
-            lblWR_.Content = $"{PlayerDisplays.Data.Winrate:P}";
-            lblAAssists_.Content = $"{PlayerDisplays.Data.AverageAssists:F1}";
-            lblADeaths_.Content = $"{PlayerDisplays.Data.AverageDeaths:F1}"; 
-            lblAKills_.Content = $"{PlayerDisplays.Data.AverageKills:F1}";
-
-
             lineSeries.ItemsSource = Points;
         }
     }

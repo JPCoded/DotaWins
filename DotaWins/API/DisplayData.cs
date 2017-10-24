@@ -28,7 +28,7 @@ namespace DotaWins
             public float AverageTowerDamage { get; private set; }
             public float AverageHeroHealing { get; private set; }
             public float AverageLastHits { get; private set; }
-            public int[] WinLosses { get; set; }
+            public int[] WinLosses { get; private set; }
 
                                
             public void ConsumeRecentMatches(Match[] recentMatches)
@@ -87,7 +87,7 @@ namespace DotaWins
                 }
             }
 
-            public void Clear()
+            internal void Clear()
             {
                 ID = "";
 

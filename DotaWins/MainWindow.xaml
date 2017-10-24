@@ -20,22 +20,26 @@
                 <Grid Background="#FFE5E5E5">
                     <Label x:Name="lblWR" Content="Win Rate" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="lblADuration" Content="Average Duration" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
-                    <StackPanel x:Name="spKDA" Margin="10,68,363,77" Orientation="Vertical">
-                        <Label x:Name="lblAKills" Content="Average Kills" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Label x:Name="lblADeaths" Content="Average Deaths" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Label x:Name="lblAAssists" Content="Average Assists" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    </StackPanel>
-                    <StackPanel Margin="10,162,374,25" Orientation="Vertical">
-                        <Label x:Name="lblAXPM" Content="Average XPM" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Label x:Name="lblAGPM" Content="Average GPM" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    </StackPanel>
-                    <Label x:Name="lblAXPM_" Content="" HorizontalAlignment="Left" Margin="97,162,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1"/>
-                    <Label x:Name="lblAGPM_" Content="" HorizontalAlignment="Left" Margin="97,188,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1"/>
-                    <Label x:Name="lblWR_" Content="" HorizontalAlignment="Left" Margin="118,10,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White"/>
-                    <Label x:Name="lblADuration_" Content="" HorizontalAlignment="Left" Margin="118,38,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White"/>
-                    <Label x:Name="lblAKills_" Content="" HorizontalAlignment="Left" Margin="118,68,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White"/>
-                    <Label x:Name="lblADeaths_" Content="" HorizontalAlignment="Left" Margin="118,96,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White"/>
-                    <Label x:Name="lblAAssists_" Content="" HorizontalAlignment="Left" Margin="118,124,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White"/>
+                    <Label x:Name="lblAKills" Content="Average Kills" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,69,0,0"/>
+                    <Label x:Name="lblADeaths" Content="Average Deaths" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,96,0,0"/>
+                    <Label x:Name="lblAAssists" Content="Average Assists" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,123,0,0"/>
+                    <Label x:Name="lblAXPM" Content="Average XPM" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,155,0,0"/>
+                    <Label x:Name="lblAGPM" Content="Average GPM" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,182,0,0"/>
+                    <Label x:Name="lblWR_" Content="" HorizontalAlignment="Left" Margin="118,9,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White"/>
+                    <Label x:Name="lblADuration_" Content="" HorizontalAlignment="Left" Margin="118,36,0,0" VerticalAlignment="Top" Width="83" BorderBrush="Black" BorderThickness="1" Background="White"/>
+                    <Label x:Name="lblAKills_" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,68,0,0"/>
+                    <Label x:Name="lblADeaths_" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,95,0,0"/>
+                    <Label x:Name="lblAAssists_" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,122,0,0"/>
+                    <Label x:Name="lblAHeroDamage" Content="Average Hero Damage" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,10,0,0"/>
+                    <Label x:Name="lblATowerDamage" Content="Average Tower Damage" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,37,0,0"/>
+                    <Label x:Name="lblAHeroHealing" Content="Average Hero Healing" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,64,0,0"/>
+                    <Label x:Name="lblALastHits" Content="Average Last Hits" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,91,0,0"/>
+                    <Label x:Name="lblAHeroDamage_" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,9,0,0"/>
+                    <Label x:Name="lblATowerDamage_" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,36,0,0"/>
+                    <Label x:Name="lblAHeroHealing1" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,63,0,0"/>
+                    <Label x:Name="lblALastHits1" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,90,0,0"/>
+                    <Label x:Name="lblAXPM_" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,154,0,0"/>
+                    <Label x:Name="lblAGPM_" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,181,0,0"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Win\Loss Graph">
