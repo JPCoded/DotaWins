@@ -41,8 +41,8 @@ namespace DotaWins
                     float totalKills = 0;
                     float totalDeaths = 0;
                     float totalAssists = 0;
-                    float totalXPM = 0;
-                    float totalGPM = 0;
+                    float totalXpm = 0;
+                    float totalGpm = 0;
                     float totalHeroDamage = 0;
                     float totalTowerDamage = 0;
                     float totalHeroHealing = 0;
@@ -50,25 +50,27 @@ namespace DotaWins
 
                     RecentMatches = recentMatches;
                     WinLosses = new int[recentMatches.Length];
-
-                    for (var i = 0; i < RecentMatches.Length; i++)
+                    foreach (var recentMatch in RecentMatches)
                     {
-                        totalSeconds += recentMatches[i].duration;
+                        totalSeconds += recentMatch.duration;
 
-                        totalKills += recentMatches[i].kills;
-                        totalDeaths += recentMatches[i].deaths;
-                        totalAssists += recentMatches[i].assists;
-                        totalXPM += recentMatches[i].xp_per_min;
-                        totalGPM += recentMatches[i].gold_per_min;
-                        totalHeroDamage += recentMatches[i].hero_damage.GetValueOrDefault(0);
-                        totalTowerDamage += recentMatches[i].tower_damage.GetValueOrDefault(0);
-                        totalHeroHealing += recentMatches[i].hero_healing.GetValueOrDefault(0);
-                        totalLastHits += recentMatches[i].last_hits;
-                        WinLosses[i] = recentMatches[i].Won ? 1 : -1;
-                        if (recentMatches[i].Won)
+                        totalKills += recentMatch.kills;
+                        totalDeaths += recentMatch.deaths;
+                        totalAssists += recentMatch.assists;
+                        totalXpm += recentMatch.xp_per_min;
+                        totalGpm += recentMatch.gold_per_min;
+                        totalHeroDamage += recentMatch.hero_damage.GetValueOrDefault(0);
+                        totalTowerDamage += recentMatch.tower_damage.GetValueOrDefault(0);
+                        totalHeroHealing += recentMatch.hero_healing.GetValueOrDefault(0);
+                        totalLastHits += recentMatch.last_hits;
+                        if (recentMatch.Won)
                         {
                             wonMatches++;
                         }
+                    }
+                    for (var i = 0; i < RecentMatches.Length; i++)
+                    {
+                        WinLosses[i] = recentMatches[i].Won ? 1 : -1;                   
                     }
 
                     Winrate = wonMatches / recentMatches.Length;
@@ -78,8 +80,8 @@ namespace DotaWins
                     AverageKills = totalKills / recentMatches.Length;
                     AverageDeaths = totalDeaths / recentMatches.Length;
                     AverageAssists = totalAssists / recentMatches.Length;
-                    AverageXPM = totalXPM / recentMatches.Length;
-                    AverageGPM = totalGPM / recentMatches.Length;
+                    AverageXPM = totalXpm / recentMatches.Length;
+                    AverageGPM = totalGpm / recentMatches.Length;
                     AverageHeroDamage = totalHeroDamage / recentMatches.Length;
                     AverageTowerDamage = totalTowerDamage / recentMatches.Length;
                     AverageHeroHealing = totalHeroHealing / recentMatches.Length;

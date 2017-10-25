@@ -31,14 +31,24 @@ namespace DotaWins
             await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
 
             UpdateWinLossGraph(PlayerDisplays.Data.WinLosses.Reverse());
-            
-            lblAXPM_.Content = PlayerDisplays.Data.AverageXPM;
-            lblAGPM_.Content = PlayerDisplays.Data.AverageGPM;
-            lblWR_.Content = $"{PlayerDisplays.Data.Winrate:P}";
-            lblAAssists_.Content = $"{PlayerDisplays.Data.AverageAssists:F1}";
-            lblADeaths_.Content = $"{PlayerDisplays.Data.AverageDeaths:F1}"; 
-            lblAKills_.Content = $"{PlayerDisplays.Data.AverageKills:F1}";
-            lblADuration_.Content = PlayerDisplays.Data.AverageDuration;
+
+            lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
+            lblADuration_D.Content = PlayerDisplays.Data.AverageDuration;
+
+            lblAAssists_D.Content = $"{PlayerDisplays.Data.AverageAssists:F1}";
+            lblADeaths_D.Content = $"{PlayerDisplays.Data.AverageDeaths:F1}";
+            lblAKills_D.Content = $"{PlayerDisplays.Data.AverageKills:F1}";
+
+            lblAXPM_D.Content = PlayerDisplays.Data.AverageXPM;
+            lblAGPM_D.Content = PlayerDisplays.Data.AverageGPM;
+
+            lblAHeroDamage_D.Content = $"{PlayerDisplays.Data.AverageHeroDamage:F1}";
+            lblATowerDamage_D.Content = $"{PlayerDisplays.Data.AverageTowerDamage:F1}";
+            lblAHeroHealing_D.Content = $"{PlayerDisplays.Data.AverageHeroHealing:F1}";
+            lblALastHits_D.Content = $"{PlayerDisplays.Data.AverageLastHits:F1}";
+
+
+
 
 
 
