@@ -108,7 +108,7 @@ namespace DotaWins
                 Points.Add(new DataPoint(x, currentWl));
                 x++;
             }
-            lineSeries.ItemsSource = Points;
+           winLossGraph.ItemsSource = Points;
         }
     }
 }
