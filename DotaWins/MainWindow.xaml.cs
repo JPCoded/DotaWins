@@ -32,7 +32,9 @@ namespace DotaWins
             await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
 
             UpdateWinLossGraph(PlayerDisplays.Data.WinLosses.Reverse());
-           UpdateGxpmGraph(PlayerDisplays.Data.GXPM);
+            //   UpdateGxpmGraph(PlayerDisplays.Data.GXPM);
+            UpdateGpmGraph(PlayerDisplays.Data.GXPM);
+            UpdateXpmGraph(PlayerDisplays.Data.GXPM);
             lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
             lblADuration_D.Content = PlayerDisplays.Data.AverageDuration;
 
@@ -48,11 +50,36 @@ namespace DotaWins
             lblAHeroHealing_D.Content = $"{PlayerDisplays.Data.AverageHeroHealing:F1}";
             lblALastHits_D.Content = $"{PlayerDisplays.Data.AverageLastHits:F1}";
 
+            
 
+        }
 
+       private void UpdateGpmGraph(IEnumerable<float[]> gpmList)
+        {
+            Points = new List<DataPoint>();
+           
+            var x = 0;
+            foreach (var pm in gpmList)
+            {
+                Points.Add(new DataPoint(x, pm[0]));
+               
+                x++;
+            }
+            GPMGraph.ItemsSource = Points;
+        }
 
+        private void UpdateXpmGraph(IEnumerable<float[]> xpmList)
+        {
+            Points = new List<DataPoint>();
 
+            var x = 0;
+            foreach (var pm in xpmList)
+            {
+                Points.Add(new DataPoint(x, pm[1]));
 
+                x++;
+            }
+            XPMGraph.ItemsSource = Points;
         }
 
         private void UpdateGxpmGraph(IEnumerable<float[]> gxpmList)
@@ -66,8 +93,8 @@ namespace DotaWins
                 Points2.Add(new DataPoint(x,pm[1]));
                 x++;
             }
-            GXPMGraph.ItemsSource = Points;
-            GXPMGraph.ItemsSource = Points2;
+           // GXPMGraph.ItemsSource = Points;
+           // GXPMGraph.ItemsSource = Points2;
         }
         private void UpdateWinLossGraph(IEnumerable<int> winLoseList)
         {
