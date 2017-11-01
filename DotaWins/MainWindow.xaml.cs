@@ -23,6 +23,7 @@ namespace DotaWins
         public PlayerDisplay PlayerDisplays { get; set; }
 
         public IList<DataPoint> Points { get; set; }
+        public IList<DataPoint> Points2 { get; set; }
 
         private async void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
@@ -31,7 +32,7 @@ namespace DotaWins
             await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
 
             UpdateWinLossGraph(PlayerDisplays.Data.WinLosses.Reverse());
-
+           UpdateGxpmGraph(PlayerDisplays.Data.GXPM);
             lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
             lblADuration_D.Content = PlayerDisplays.Data.AverageDuration;
 
@@ -39,8 +40,8 @@ namespace DotaWins
             lblADeaths_D.Content = $"{PlayerDisplays.Data.AverageDeaths:F1}";
             lblAKills_D.Content = $"{PlayerDisplays.Data.AverageKills:F1}";
 
-            lblAXPM_D.Content = PlayerDisplays.Data.AverageXPM;
-            lblAGPM_D.Content = PlayerDisplays.Data.AverageGPM;
+            lblAXPM_D.Content = $"{PlayerDisplays.Data.AverageXPM:F1}";
+            lblAGPM_D.Content = $"{PlayerDisplays.Data.AverageGPM:F1}";
 
             lblAHeroDamage_D.Content = $"{PlayerDisplays.Data.AverageHeroDamage:F1}";
             lblATowerDamage_D.Content = $"{PlayerDisplays.Data.AverageTowerDamage:F1}";
@@ -54,6 +55,20 @@ namespace DotaWins
 
         }
 
+        private void UpdateGxpmGraph(IEnumerable<float[]> gxpmList)
+        {
+            Points = new List<DataPoint>();
+            Points2 = new List<DataPoint>();
+            var x = 0;
+            foreach (var pm in gxpmList)
+            {
+                Points.Add(new DataPoint(x,pm[0]));
+                Points2.Add(new DataPoint(x,pm[1]));
+                x++;
+            }
+            GXPMGraph.ItemsSource = Points;
+            GXPMGraph.ItemsSource = Points2;
+        }
         private void UpdateWinLossGraph(IEnumerable<int> winLoseList)
         {
             Points = new List<DataPoint>();

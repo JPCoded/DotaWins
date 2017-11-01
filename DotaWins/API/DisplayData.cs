@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 
 #endregion
 
@@ -29,7 +30,7 @@ namespace DotaWins
             public float AverageHeroHealing { get; private set; }
             public float AverageLastHits { get; private set; }
             public int[] WinLosses { get; private set; }
-
+            public List<float[]> GXPM { get; set; }
                                
             public void ConsumeRecentMatches(Match[] recentMatches)
             {
@@ -47,9 +48,10 @@ namespace DotaWins
                     float totalTowerDamage = 0;
                     float totalHeroHealing = 0;
                     float totalLastHits = 0;
-
+                     
                     RecentMatches = recentMatches;
                     WinLosses = new int[recentMatches.Length];
+                    GXPM = new List<float[]>();
                     foreach (var recentMatch in RecentMatches)
                     {
                         totalSeconds += recentMatch.duration;
@@ -57,6 +59,7 @@ namespace DotaWins
                         totalKills += recentMatch.kills;
                         totalDeaths += recentMatch.deaths;
                         totalAssists += recentMatch.assists;
+                        GXPM.Add(new[]{ (float)recentMatch.gold_per_min,recentMatch.xp_per_min});
                         totalXpm += recentMatch.xp_per_min;
                         totalGpm += recentMatch.gold_per_min;
                         totalHeroDamage += recentMatch.hero_damage.GetValueOrDefault(0);

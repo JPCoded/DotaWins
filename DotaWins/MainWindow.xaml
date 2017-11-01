@@ -49,6 +49,11 @@
                     </oxy:Plot>
                 </Grid>
             </TabItem>
+            <TabItem Header="GPM/XPM Graph">
+                <oxy:Plot Title="GPM / XPM ">
+                    <oxy:LineSeries x:Name="GXPMGraph" />
+                </oxy:Plot>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
