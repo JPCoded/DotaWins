@@ -59,6 +59,13 @@
                     <oxy:LineSeries x:Name="XPMGraph" />
                 </oxy:Plot>
             </TabItem>
+            <TabItem Header="Test">
+                <Canvas Name="canGraph" Background="White"
+                        Width="561" Height="250"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
