@@ -41,7 +41,7 @@ namespace DotaWins
            
             UpdateGpmGraph(PlayerDisplays.Data.GXPM);
             UpdateXpmGraph(PlayerDisplays.Data.GXPM);
-            graphtest();
+            NewGraph(ref canGraph,PlayerDisplays.Data.GXPM);
             lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
             lblADuration_D.Content = PlayerDisplays.Data.AverageDuration;
 
@@ -101,6 +101,125 @@ namespace DotaWins
             winLossGraph.ItemsSource = Points;
         }
 
+        public Canvas NewGraph(ref Canvas canvasToGraph,IEnumerable<dynamic> dataset, IEnumerable<dynamic> dataset2 = null, double wxmin = -1, double wxmax = 101,double wymin = -1, double wymax = 11)
+        {
+         //   var canvasToGraph = new Canvas();
+    
+            
+
+            const double xstep = 10;
+            const double ystep = 1;
+
+            const double dmargin = 10;
+            const double dxmin = dmargin;
+            var dxmax = canGraph.Width - dmargin;
+            const double dymin = dmargin;
+            var dymax = canGraph.Height - dmargin;
+
+            // Prepare the transformation matrices.
+            PrepareTransformations(
+                wxmin, wxmax, wymin, wymax,
+                dxmin, dxmax, dymax, dymin);
+
+            // Get the tic mark lengths.
+            var p0 = DtoW(new Point(0, 0));
+            var p1 = DtoW(new Point(5, 5));
+            var xtic = p1.X - p0.X;
+            var ytic = p1.Y - p0.Y;
+
+            // Make the X axis.
+            var xaxisGeom = new GeometryGroup();
+            p0 = new Point(wxmin, 0);
+            p1 = new Point(wxmax, 0);
+            xaxisGeom.Children.Add(new LineGeometry(WtoD(p0), WtoD(p1)));
+
+            for (var x = xstep; x <= wxmax - xstep; x += xstep)
+            {
+                // Add the tic mark.
+                var tic0 = WtoD(new Point(x, -ytic));
+                var tic1 = WtoD(new Point(x, ytic));
+                xaxisGeom.Children.Add(new LineGeometry(tic0, tic1));
+
+                // Label the tic mark's X coordinate.
+                DrawText(canvasToGraph, x.ToString(),
+                    new Point(tic0.X, tic0.Y + 5), 12,
+                    HorizontalAlignment.Center,
+                    VerticalAlignment.Top);
+            }
+
+            var xaxisPath = new Path
+            {
+                StrokeThickness = 1,
+                Stroke = Brushes.Black,
+                Data = xaxisGeom
+            };
+
+           canvasToGraph.Children.Add(xaxisPath);
+
+            // Make the Y axis.
+            var yaxisGeom = new GeometryGroup();
+            p0 = new Point(0, wymin);
+            p1 = new Point(0, wymax);
+            xaxisGeom.Children.Add(new LineGeometry(WtoD(p0), WtoD(p1)));
+
+            for (var y = ystep; y <= wymax - ystep; y += ystep)
+            {
+                // Add the tic mark.
+                var tic0 = WtoD(new Point(-xtic, y));
+                var tic1 = WtoD(new Point(xtic, y));
+                xaxisGeom.Children.Add(new LineGeometry(tic0, tic1));
+
+                // Label the tic mark's Y coordinate.
+                DrawText(canvasToGraph, y.ToString(),
+                    new Point(tic0.X - 10, tic0.Y), 12,
+                    HorizontalAlignment.Center,
+                    VerticalAlignment.Center);
+            }
+
+            var yaxisPath = new Path
+            {
+                StrokeThickness = 1,
+                Stroke = Brushes.Black,
+                Data = yaxisGeom
+            };
+
+            canvasToGraph.Children.Add(yaxisPath);
+
+            // Make some data sets.
+            Brush[] brushes = { Brushes.Red, Brushes.Green, Brushes.Blue };
+            var rand = new Random();
+            for (var dataSet = 0; dataSet < 3; dataSet++)
+            {
+                double lastY = rand.Next(3, 7);
+
+                var points = new PointCollection();
+                for (double x = 0; x <= 100; x += 10)
+                {
+                    lastY += rand.Next(-10, 10) / 10.0;
+                    if (lastY < 0) lastY = 0;
+                    if (lastY > 10) lastY = 10;
+                    var p = new Point(x, lastY);
+                    points.Add(WtoD(p));
+                }
+
+                var polyline = new Polyline
+                {
+                    StrokeThickness = 1,
+                    Stroke = brushes[dataSet],
+                    Points = points
+                };
+
+                canvasToGraph.Children.Add(polyline);
+            }
+
+            // Make a title
+            var titleLocation = WtoD(new Point(50, 10));
+            DrawText(canvasToGraph, "Amazing Data", titleLocation, 20,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Top);
+
+            return canvasToGraph;
+        }
         public void graphtest()
         {
             double wxmin = -1;
@@ -245,44 +364,44 @@ namespace DotaWins
         private Point DtoW(Point point) => _dtoWMatrix.Transform(point);
 
         // Position a label at the indicated point.
-        private void DrawText(Canvas can, string text, Point location,
-            double font_size,
+        private static void DrawText(Panel can, string text, Point location,
+            double fontSize,
             HorizontalAlignment halign, VerticalAlignment valign)
         {
             // Make the label.
-            var label = new Label
+            var canvasLabel = new Label
             {
                 Content = text,
-                FontSize = font_size
+                FontSize = fontSize
             };
-            can.Children.Add(label);
+            can.Children.Add(canvasLabel);
 
             // Position the label.
-            label.Measure(new Size(double.MaxValue, double.MaxValue));
+            canvasLabel.Measure(new Size(double.MaxValue, double.MaxValue));
 
             var x = location.X;
             if (halign == HorizontalAlignment.Center)
             {
-                x -= label.DesiredSize.Width / 2;
+                x -= canvasLabel.DesiredSize.Width / 2;
             }
             else if (halign == HorizontalAlignment.Right)
             {
-                x -= label.DesiredSize.Width;
+                x -= canvasLabel.DesiredSize.Width;
             }
 
-            Canvas.SetLeft(label, x);
+            Canvas.SetLeft(canvasLabel, x);
 
             var y = location.Y;
             if (valign == VerticalAlignment.Center)
             {
-                y -= label.DesiredSize.Height / 2;
+                y -= canvasLabel.DesiredSize.Height / 2;
             }
             else if (valign == VerticalAlignment.Bottom)
             {
-                y -= label.DesiredSize.Height;
+                y -= canvasLabel.DesiredSize.Height;
             }
 
-            Canvas.SetTop(label, y);
+            Canvas.SetTop(canvasLabel, y);
         }
     }
 }
