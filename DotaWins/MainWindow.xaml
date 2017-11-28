@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DotaWins"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="576">
 
@@ -59,6 +60,13 @@
                     <oxy:LineSeries x:Name="XPMGraph" />
                 </oxy:Plot>
             </TabItem>
+            <TabItem Header="Test Tab">
+                <lvc:CartesianChart>
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Values="{Binding crtGPM}"></lvc:LineSeries>
+                    </lvc:CartesianChart.Series>
+                    </lvc:CartesianChart>
+                </TabItem>
         </TabControl>
     </Grid>
 </Window>

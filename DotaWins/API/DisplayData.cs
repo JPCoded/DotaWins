@@ -10,7 +10,7 @@ namespace DotaWins
 {
     public sealed partial class PlayerDisplay
     {
-        public class DisplayData
+        public class DisplayData : IDisplayData
         {
             public string ID { get; private set; }
 
@@ -32,6 +32,8 @@ namespace DotaWins
             public float AverageLastHits { get; private set; }
             public int[] WinLosses { get; private set; }
             public List<float[]> GXPM { get; set; }
+            public List<float> GPM { get; set; }
+            public List<float> XPM { get; set; }
             public List<double> Average20XPM { get; set; }
                           
             public void ConsumeRecentMatches(Match[] recentMatches)
@@ -52,10 +54,10 @@ namespace DotaWins
                     float totalLastHits = 0;
                      
                     RecentMatches = recentMatches;
-                    var MatchesList = recentMatches.ToList();
+                    var matchesList = recentMatches.ToList();
                     var matches = new List<double>();
-                    MatchesList.ForEach(a=>matches.Add(a.xp_per_min));
-                    Average20XPM = Average(matches, 20);
+                    matchesList.ForEach(a=>matches.Add(a.xp_per_min));
+                    Average20XPM = AvgClass.Average(matches, 20);
                     
                     WinLosses = new int[recentMatches.Length];
                     GXPM = new List<float[]>();
@@ -67,6 +69,8 @@ namespace DotaWins
                         totalDeaths += recentMatch.deaths;
                         totalAssists += recentMatch.assists;
                         GXPM.Add(new[]{ (float)recentMatch.gold_per_min,recentMatch.xp_per_min});
+                        XPM.Add(recentMatch.xp_per_min);
+                        GPM.Add(recentMatch.gold_per_min);
                         totalXpm += recentMatch.xp_per_min;
                         totalGpm += recentMatch.gold_per_min;
                         totalHeroDamage += recentMatch.hero_damage.GetValueOrDefault(0);
@@ -121,34 +125,8 @@ namespace DotaWins
                 AverageLastHits = 0;
                 WinLosses = null;
                 Average20XPM = null;
-            }
-
-            public static List<double> Average(IEnumerable<double> number, int nElement)
-            {
-                var currentElement = 0;
-                var currentSum = 0.0;
-
-                var newList = new List<double>();
-
-                foreach (var item in number)
-                {
-                    currentSum += item;
-                    currentElement++;
-
-                    if (currentElement == nElement)
-                    {
-                        newList.Add(currentSum / nElement);
-                        currentElement = 0;
-                        currentSum = 0.0;
-                    }
-                }
-                // Maybe the array element count is not the same to the asked, so average the last sum. You can remove this condition if you want
-                if (currentElement > 0)
-                {
-                    newList.Add(currentSum / currentElement);
-                }
-
-                return newList;
+                XPM = null;
+                GPM = null;
             }
         }
     }

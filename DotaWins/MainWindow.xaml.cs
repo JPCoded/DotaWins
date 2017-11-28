@@ -1,15 +1,11 @@
 ﻿#region
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 using OxyPlot;
-using HorizontalAlignment = System.Windows.HorizontalAlignment;
-using VerticalAlignment = System.Windows.VerticalAlignment;
 
 #endregion
 
@@ -26,14 +22,16 @@ namespace DotaWins
         public MainWindow()
         {
             InitializeComponent();
+            //DataContext = this;
         }
-
+       public ChartValues<float> crtGPM { get; set; }
         public PlayerDisplay PlayerDisplays { get; set; }
 
         public IList<DataPoint> Points { get; set; }
     
         private async void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
+
             PlayerDisplays = new PlayerDisplay();
 
             await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
@@ -42,7 +40,7 @@ namespace DotaWins
            
             UpdateGpmGraph(PlayerDisplays.Data.GXPM);
             UpdateXpmGraph(PlayerDisplays.Data.GXPM);
-        
+            UpdateTest(PlayerDisplays.Data.GPM);
             lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
             lblADuration_D.Content = PlayerDisplays.Data.AverageDuration;
 
@@ -59,6 +57,13 @@ namespace DotaWins
             lblALastHits_D.Content = $"{PlayerDisplays.Data.AverageLastHits:F1}";
         }
 
+
+        private void UpdateTest(IEnumerable<float> gpmlist)
+        {
+            crtGPM = new ChartValues<float>();
+          crtGPM.AddRange(gpmlist);
+          
+        }
         private void UpdateGpmGraph(IEnumerable<float[]> gpmList)
         {
             Points = new List<DataPoint>();
