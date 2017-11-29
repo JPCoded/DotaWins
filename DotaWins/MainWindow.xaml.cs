@@ -6,6 +6,8 @@ using System.Windows;
 using LiveCharts;
 using LiveCharts.Wpf;
 using OxyPlot;
+using OxyPlot.Series;
+using LineSeries = LiveCharts.Wpf.LineSeries;
 
 #endregion
 
@@ -27,7 +29,7 @@ namespace DotaWins
       
         public PlayerDisplay PlayerDisplays { get; set; }
 
-        public IList<DataPoint> Points { get; set; }
+     //   public IList<DataPoint> Points { get; set; }
     
         private async void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
@@ -37,9 +39,8 @@ namespace DotaWins
             await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
 
             UpdateWinLossGraph(PlayerDisplays.Data.WinLosses.Reverse());
-           
-            UpdateGpmGraph(PlayerDisplays.Data.GPM);
-            UpdateXpmGraph(PlayerDisplays.Data.XPM);
+            GPMGraph.ItemsSource = GetPoints(PlayerDisplays.Data.GPM);
+            XPMGraph.ItemsSource = GetPoints(PlayerDisplays.Data.XPM);
             UpdateTest(PlayerDisplays.Data.GPM);
             lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
             lblADuration_D.Content = PlayerDisplays.Data.AverageDuration;
@@ -76,37 +77,24 @@ namespace DotaWins
             testGrid.Children.Add(ch);
 
         }
-        private void UpdateGpmGraph(IEnumerable<float> gpmList)
+
+        private IEnumerable<DataPoint> GetPoints(IEnumerable<float> pointsList)
         {
-            Points = new List<DataPoint>();
+           var points = new List<DataPoint>();
 
             var x = 0;
-            foreach (var pm in gpmList)
+            foreach (var pm in pointsList)
             {
-                Points.Add(new DataPoint(x, pm));
-
+                points.Add(new DataPoint(x, pm));
                 x++;
             }
-            GPMGraph.ItemsSource = Points;
+            return points;
         }
 
-        private void UpdateXpmGraph(IEnumerable<float> xpmList)
-        {
-            Points = new List<DataPoint>();
-            
-            var x = 0;
-            foreach (var pm in xpmList)
-            {
-                Points.Add(new DataPoint(x, pm));
-
-                x++;
-            }
-            XPMGraph.ItemsSource = Points;
-        }
 
         private void UpdateWinLossGraph(IEnumerable<int> winLoseList)
         {
-            Points = new List<DataPoint>();
+            var Points = new List<DataPoint>();
 
             var x = 0;
             var currentWl = 0;
