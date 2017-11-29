@@ -31,7 +31,6 @@ namespace DotaWins
             public float AverageHeroHealing { get; private set; }
             public float AverageLastHits { get; private set; }
             public int[] WinLosses { get; private set; }
-            public List<float[]> GXPM { get; set; }
             public List<float> GPM { get; set; }
             public List<float> XPM { get; set; }
             public List<double> Average20XPM { get; set; }
@@ -60,7 +59,9 @@ namespace DotaWins
                     Average20XPM = AvgClass.Average(matches, 20);
                     
                     WinLosses = new int[recentMatches.Length];
-                    GXPM = new List<float[]>();
+                   
+                    XPM = new List<float>();
+                    GPM = new List<float>();
                     foreach (var recentMatch in RecentMatches)
                     {
                         totalSeconds += recentMatch.duration;
@@ -68,7 +69,7 @@ namespace DotaWins
                         totalKills += recentMatch.kills;
                         totalDeaths += recentMatch.deaths;
                         totalAssists += recentMatch.assists;
-                        GXPM.Add(new[]{ (float)recentMatch.gold_per_min,recentMatch.xp_per_min});
+                      
                         XPM.Add(recentMatch.xp_per_min);
                         GPM.Add(recentMatch.gold_per_min);
                         totalXpm += recentMatch.xp_per_min;

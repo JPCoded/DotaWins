@@ -22,7 +22,6 @@ namespace DotaWins
         float AverageHeroHealing { get; }
         float AverageLastHits { get; }
         int[] WinLosses { get; }
-        List<float[]> GXPM { get; set; }
         List<float> GPM { get; set; }
         List<float> XPM { get; set; }
         List<double> Average20XPM { get; set; }

@@ -22,9 +22,9 @@ namespace DotaWins
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = this;
+            DataContext = this;
         }
-       public ChartValues<float> crtGPM { get; set; }
+      
         public PlayerDisplay PlayerDisplays { get; set; }
 
         public IList<DataPoint> Points { get; set; }
@@ -38,8 +38,8 @@ namespace DotaWins
 
             UpdateWinLossGraph(PlayerDisplays.Data.WinLosses.Reverse());
            
-            UpdateGpmGraph(PlayerDisplays.Data.GXPM);
-            UpdateXpmGraph(PlayerDisplays.Data.GXPM);
+            UpdateGpmGraph(PlayerDisplays.Data.GPM);
+            UpdateXpmGraph(PlayerDisplays.Data.XPM);
             UpdateTest(PlayerDisplays.Data.GPM);
             lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
             lblADuration_D.Content = PlayerDisplays.Data.AverageDuration;
@@ -57,35 +57,47 @@ namespace DotaWins
             lblALastHits_D.Content = $"{PlayerDisplays.Data.AverageLastHits:F1}";
         }
 
-
+      
         private void UpdateTest(IEnumerable<float> gpmlist)
         {
-            crtGPM = new ChartValues<float>();
-          crtGPM.AddRange(gpmlist);
-          
+            var ch = new CartesianChart();
+
+          var  crtGpm = new ChartValues<float>();
+
+            crtGpm.AddRange(gpmlist);
+
+            ch.Series = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Values = crtGpm
+                }
+            };
+            testGrid.Children.Add(ch);
+
         }
-        private void UpdateGpmGraph(IEnumerable<float[]> gpmList)
+        private void UpdateGpmGraph(IEnumerable<float> gpmList)
         {
             Points = new List<DataPoint>();
 
             var x = 0;
             foreach (var pm in gpmList)
             {
-                Points.Add(new DataPoint(x, pm[0]));
+                Points.Add(new DataPoint(x, pm));
 
                 x++;
             }
             GPMGraph.ItemsSource = Points;
         }
 
-        private void UpdateXpmGraph(IEnumerable<float[]> xpmList)
+        private void UpdateXpmGraph(IEnumerable<float> xpmList)
         {
             Points = new List<DataPoint>();
-
+            
             var x = 0;
             foreach (var pm in xpmList)
             {
-                Points.Add(new DataPoint(x, pm[1]));
+                Points.Add(new DataPoint(x, pm));
 
                 x++;
             }

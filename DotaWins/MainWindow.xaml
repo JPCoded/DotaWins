@@ -49,6 +49,7 @@
                         <oxy:LineSeries x:Name="winLossGraph" LineLegendPosition="Start" StrokeThickness="1" />
                     </oxy:Plot>
                 </Grid>
+            
             </TabItem>
             <TabItem Header="GPM Graph">
                 <oxy:Plot Title="GPM">
@@ -61,11 +62,7 @@
                 </oxy:Plot>
             </TabItem>
             <TabItem Header="Test Tab">
-                <lvc:CartesianChart>
-                    <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Values="{Binding crtGPM}"></lvc:LineSeries>
-                    </lvc:CartesianChart.Series>
-                    </lvc:CartesianChart>
+               <Grid x:Name="testGrid" ></Grid>
                 </TabItem>
         </TabControl>
     </Grid>
