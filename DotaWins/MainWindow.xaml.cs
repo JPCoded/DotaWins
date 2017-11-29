@@ -1,19 +1,19 @@
 ﻿#region
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using LiveCharts;
 using LiveCharts.Wpf;
 using OxyPlot;
-using OxyPlot.Series;
 using LineSeries = LiveCharts.Wpf.LineSeries;
 
 #endregion
 
 namespace DotaWins
 {
-  
+
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
@@ -39,9 +39,11 @@ namespace DotaWins
             await PlayerDisplays.UpdateAsync(txtPlayerId.Text, 7);
 
             UpdateWinLossGraph(PlayerDisplays.Data.WinLosses.Reverse());
-            GPMGraph.ItemsSource = GetPoints(PlayerDisplays.Data.GPM);
-            XPMGraph.ItemsSource = GetPoints(PlayerDisplays.Data.XPM);
-            UpdateTest(PlayerDisplays.Data.GPM);
+            gpmGraph.ItemsSource = GetPoints(PlayerDisplays.Data.GPM);
+            xpmGraph.ItemsSource = GetPoints(PlayerDisplays.Data.XPM);
+            UpdateKda(PlayerDisplays.Data.AverageKills, PlayerDisplays.Data.AverageDeaths,PlayerDisplays.Data.AverageAssists);
+          
+
             lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
             lblADuration_D.Content = PlayerDisplays.Data.AverageDuration;
 
@@ -57,27 +59,38 @@ namespace DotaWins
             lblAHeroHealing_D.Content = $"{PlayerDisplays.Data.AverageHeroHealing:F1}";
             lblALastHits_D.Content = $"{PlayerDisplays.Data.AverageLastHits:F1}";
         }
-
       
-        private void UpdateTest(IEnumerable<float> gpmlist)
+        private void UpdateKda(float kills, float deaths, float assists)
         {
-            var ch = new CartesianChart();
-
-          var  crtGpm = new ChartValues<float>();
-
-            crtGpm.AddRange(gpmlist);
-
-            ch.Series = new SeriesCollection
+          
+            kdaChart.AxisX.Add( new Axis ());
+           kdaChart.AxisY.Add( new Axis());
+            kdaChart.LegendLocation = LegendLocation.Bottom;
+            var seriesCollection = new SeriesCollection
             {
-                new LineSeries
+                new RowSeries
                 {
-                    Values = crtGpm
+                    Title = "K",
+                    Values = new ChartValues<float> { kills }
+                },
+                new RowSeries
+                {
+                    Title = "D",
+                    Values = new ChartValues<float>{deaths}
+                },
+                new RowSeries
+                {
+                    Title = "A",
+                    Values = new ChartValues<float>{assists}
                 }
             };
-            testGrid.Children.Add(ch);
+          
+            kdaChart.Series = seriesCollection;
+
+       
+
 
         }
-
         private IEnumerable<DataPoint> GetPoints(IEnumerable<float> pointsList)
         {
            var points = new List<DataPoint>();

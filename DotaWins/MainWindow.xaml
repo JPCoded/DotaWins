@@ -41,6 +41,9 @@
                     <Label x:Name="lblALastHits_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,90,0,0"/>
                     <Label x:Name="lblAXPM_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,154,0,0"/>
                     <Label x:Name="lblAGPM_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,181,0,0"/>
+                    <Grid x:Name="grdKDA" HorizontalAlignment="Left" Height="99" Margin="197,126,0,0" VerticalAlignment="Top" Width="144" Background="White">
+                        <lvc:CartesianChart x:Name="kdaChart"></lvc:CartesianChart>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Win\Loss Graph">
@@ -49,21 +52,17 @@
                         <oxy:LineSeries x:Name="winLossGraph" LineLegendPosition="Start" StrokeThickness="1" />
                     </oxy:Plot>
                 </Grid>
-            
             </TabItem>
             <TabItem Header="GPM Graph">
                 <oxy:Plot Title="GPM">
-                    <oxy:LineSeries x:Name="GPMGraph" />
+                    <oxy:LineSeries x:Name="gpmGraph" />
                 </oxy:Plot>
             </TabItem>
             <TabItem Header="XPM Graph">
                 <oxy:Plot Title="XPM ">
-                    <oxy:LineSeries x:Name="XPMGraph" />
+                    <oxy:LineSeries x:Name="xpmGraph" />
                 </oxy:Plot>
             </TabItem>
-            <TabItem Header="Test Tab">
-               <Grid x:Name="testGrid" ></Grid>
-                </TabItem>
         </TabControl>
     </Grid>
 </Window>
