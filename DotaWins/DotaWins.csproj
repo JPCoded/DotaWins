@@ -91,6 +91,7 @@
     <Compile Include="API\OpenDotaAPI.cs" />
     <Compile Include="Outputs\PlayerData.cs" />
     <Compile Include="Outputs\Profile.cs" />
+    <Compile Include="API\PointsClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
