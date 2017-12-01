@@ -41,9 +41,6 @@
                     <Label x:Name="lblALastHits_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,90,0,0"/>
                     <Label x:Name="lblAXPM_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,154,0,0"/>
                     <Label x:Name="lblAGPM_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,181,0,0"/>
-                    <Grid x:Name="grdKDA" HorizontalAlignment="Left" Height="99" Margin="197,126,0,0" VerticalAlignment="Top" Width="144" Background="White">
-                        <lvc:CartesianChart x:Name="kdaChart"></lvc:CartesianChart>
-                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Win\Loss Graph">
@@ -62,6 +59,11 @@
                 <oxy:Plot Title="XPM ">
                     <oxy:LineSeries x:Name="xpmGraph" />
                 </oxy:Plot>
+            </TabItem>
+            <TabItem Header="KDA AVG Graph">
+                <Grid x:Name="grdKDA" HorizontalAlignment="Left" Height="243" Margin="10,5,0,0" VerticalAlignment="Top" Width="546" Background="White">
+                   
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

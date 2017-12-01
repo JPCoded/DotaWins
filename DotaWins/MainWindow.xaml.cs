@@ -1,13 +1,11 @@
 ﻿#region
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
 using LiveCharts;
 using LiveCharts.Wpf;
 using OxyPlot;
-using LineSeries = LiveCharts.Wpf.LineSeries;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 
 #endregion
 
@@ -28,7 +26,7 @@ namespace DotaWins
         }
       
         public PlayerDisplay PlayerDisplays { get; set; }
-
+       
      //   public IList<DataPoint> Points { get; set; }
     
         private async void btnRefresh_Click(object sender, RoutedEventArgs e)
@@ -41,7 +39,8 @@ namespace DotaWins
             UpdateWinLossGraph(PlayerDisplays.Data.WinLosses.Reverse());
             gpmGraph.ItemsSource = GetPoints(PlayerDisplays.Data.GPM);
             xpmGraph.ItemsSource = GetPoints(PlayerDisplays.Data.XPM);
-            UpdateKda(PlayerDisplays.Data.AverageKills, PlayerDisplays.Data.AverageDeaths,PlayerDisplays.Data.AverageAssists);
+            //not best solution, but having a chart already made and making it equal new chart didn't work
+            grdKDA.Children.Add(CreateKda(PlayerDisplays.Data.AverageKills, PlayerDisplays.Data.AverageDeaths,PlayerDisplays.Data.AverageAssists));
           
 
             lblWR_D.Content = $"{PlayerDisplays.Data.Winrate:P}";
@@ -60,38 +59,26 @@ namespace DotaWins
             lblALastHits_D.Content = $"{PlayerDisplays.Data.AverageLastHits:F1}";
         }
       
-        private void UpdateKda(float kills, float deaths, float assists)
+        private static CartesianChart CreateKda(float kills, float deaths, float assists)
         {
-          
-            kdaChart.AxisX.Add( new Axis ());
-           kdaChart.AxisY.Add( new Axis());
-            kdaChart.LegendLocation = LegendLocation.Bottom;
-            var seriesCollection = new SeriesCollection
+          var tempChart = new CartesianChart();
+            tempChart.AxisX.Add(new Axis() { Labels = new[] { "Kills", "Deaths", "Assists" } });
+           
+          tempChart.AxisY.Add( new Axis());
+         
+           var  seriesCollection = new SeriesCollection
             {
-                new RowSeries
+                new ColumnSeries()
                 {
-                    Title = "K",
-                    Values = new ChartValues<float> { kills }
-                },
-                new RowSeries
-                {
-                    Title = "D",
-                    Values = new ChartValues<float>{deaths}
-                },
-                new RowSeries
-                {
-                    Title = "A",
-                    Values = new ChartValues<float>{assists}
+                   
+                    Values = new ChartValues<float> { kills,deaths, assists }
                 }
             };
-          
-            kdaChart.Series = seriesCollection;
-
-       
-
-
+            tempChart.Series = seriesCollection;
+          return tempChart;
         }
-        private IEnumerable<DataPoint> GetPoints(IEnumerable<float> pointsList)
+
+        private static IEnumerable<DataPoint> GetPoints(IEnumerable<float> pointsList)
         {
            var points = new List<DataPoint>();
 
