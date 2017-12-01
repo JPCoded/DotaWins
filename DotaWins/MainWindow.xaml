@@ -1,4 +1,4 @@
-﻿<Window x:Class="DotaWins.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,8 +6,14 @@
         xmlns:local="clr-namespace:DotaWins"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="DotaWins.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="576">
+
+    <Window.Resources>
+        <System:String x:Key="FixedPoint">F1</System:String>
+        <System:String x:Key="Percent">P</System:String>
+    </Window.Resources>
 
     <Grid>
         <Label x:Name="label" Content="PlayerID" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top"
@@ -26,21 +32,21 @@
                     <Label x:Name="lblAAssists" Content="Average Assists" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,123,0,0"/>
                     <Label x:Name="lblAXPM" Content="Average XPM" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,155,0,0"/>
                     <Label x:Name="lblAGPM" Content="Average GPM" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="13,182,0,0"/>
-                    <Label x:Name="lblWR_D" Content="" HorizontalAlignment="Left" Margin="118,9,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White"/>
+                    <Label x:Name="lblWR_D" Content="" ContentStringFormat="{DynamicResource Percent}" HorizontalAlignment="Left" Margin="118,9,0,0" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White"/>
                     <Label x:Name="lblADuration_D" Content="" HorizontalAlignment="Left" Margin="118,36,0,0" VerticalAlignment="Top" Width="83" BorderBrush="Black" BorderThickness="1" Background="White"/>
-                    <Label x:Name="lblAKills_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,68,0,0"/>
-                    <Label x:Name="lblADeaths_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,95,0,0"/>
-                    <Label x:Name="lblAAssists_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,122,0,0"/>
+                    <Label x:Name="lblAKills_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,68,0,0" ContentStringFormat="{DynamicResource FixedPoint}"/>
+                    <Label x:Name="lblADeaths_D" Content="" ContentStringFormat="{DynamicResource FixedPoint}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,95,0,0"/>
+                    <Label x:Name="lblAAssists_D" Content="" ContentStringFormat="{DynamicResource FixedPoint}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" BorderThickness="1" Background="White" Margin="118,122,0,0"/>
                     <Label x:Name="lblAHeroDamage" Content="Average Hero Damage" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,10,0,0"/>
                     <Label x:Name="lblATowerDamage" Content="Average Tower Damage" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,37,0,0"/>
                     <Label x:Name="lblAHeroHealing" Content="Average Hero Healing" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,64,0,0"/>
                     <Label x:Name="lblALastHits" Content="Average Last Hits" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,91,0,0"/>
-                    <Label x:Name="lblAHeroDamage_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,9,0,0"/>
-                    <Label x:Name="lblATowerDamage_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,36,0,0"/>
-                    <Label x:Name="lblAHeroHealing_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,63,0,0"/>
-                    <Label x:Name="lblALastHits_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,90,0,0"/>
-                    <Label x:Name="lblAXPM_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,154,0,0"/>
-                    <Label x:Name="lblAGPM_D" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,181,0,0"/>
+                    <Label x:Name="lblAHeroDamage_D" Content="" ContentStringFormat="{DynamicResource FixedPoint}" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,9,0,0"/>
+                    <Label x:Name="lblATowerDamage_D" Content="" ContentStringFormat="{DynamicResource FixedPoint}" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,36,0,0"/>
+                    <Label x:Name="lblAHeroHealing_D" Content="" ContentStringFormat="{DynamicResource FixedPoint}" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,63,0,0"/>
+                    <Label x:Name="lblALastHits_D" Content="" ContentStringFormat="{DynamicResource FixedPoint}" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="Black" BorderThickness="1" Background="White" Width="64" Margin="346,90,0,0"/>
+                    <Label x:Name="lblAXPM_D" Content="" ContentStringFormat="{DynamicResource FixedPoint}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,154,0,0"/>
+                    <Label x:Name="lblAGPM_D" Content="" ContentStringFormat="{DynamicResource FixedPoint}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" BorderBrush="Black" Background="White" BorderThickness="1" Margin="118,181,0,0"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Win\Loss Graph">
@@ -61,9 +67,7 @@
                 </oxy:Plot>
             </TabItem>
             <TabItem Header="KDA AVG Graph">
-                <Grid x:Name="grdKDA" HorizontalAlignment="Left" Height="243" Margin="10,5,0,0" VerticalAlignment="Top" Width="546" Background="White">
-                   
-                </Grid>
+                <Grid x:Name="grdKDA" HorizontalAlignment="Left" Height="243" Margin="10,5,0,0" VerticalAlignment="Top" Width="546" Background="White"/>
             </TabItem>
         </TabControl>
     </Grid>
